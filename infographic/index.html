@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Direction – Infografía de Streaming | Trabajo de Grado</title>
+  <style>
+    /* ── Paleta de colores basada en One Direction ── */
+    :root {
+      --bg:        #0d0d1a;
+      --surface:   #161626;
+      --card:      #1e1e35;
+      --accent1:   #c8102e;   /* rojo UK */
+      --accent2:   #00aeef;   /* azul cielo */
+      --accent3:   #1db954;   /* verde Spotify */
+      --accent4:   #ff6b35;   /* naranja */
+      --gold:      #ffd700;
+      --text:      #f0f0f8;
+      --muted:     #8888aa;
+      --border:    #2d2d4e;
+      --font-main: 'Segoe UI', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.5;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 50%, #0a1628 100%);
+      text-align: center;
+      padding: 60px 20px 40px;
+      border-bottom: 2px solid var(--accent1);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(200,16,46,.15) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent1);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      background: linear-gradient(90deg, #fff 0%, var(--accent2) 60%, var(--accent1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+    }
+    .hero-stat .lbl {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 48px 0; }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent1), transparent);
+    }
+
+    /* ── CARDS GRID ── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: transform .2s, border-color .2s;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent2); }
+
+    /* ── STREAMING BAR CHART ── */
+    .bar-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .bar-row { display: flex; align-items: center; gap: 10px; }
+    .bar-label { width: 185px; font-size: .82rem; color: var(--text); flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; height: 18px; background: var(--surface); border-radius: 9px; overflow: hidden; }
+    .bar-fill {
+      height: 100%;
+      border-radius: 9px;
+      transition: width 1.4s cubic-bezier(.4,0,.2,1);
+    }
+    .bar-val { width: 55px; text-align: right; font-size: .8rem; color: var(--muted); flex-shrink: 0; }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent1), var(--accent2), var(--accent3));
+    }
+    .t-item { position: relative; margin-bottom: 20px; }
+    .t-dot {
+      position: absolute;
+      left: -25px;
+      top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--card);
+    }
+    .t-year {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .t-title { font-size: .92rem; font-weight: 700; margin: 2px 0; }
+    .t-desc { font-size: .78rem; color: var(--muted); }
+
+    /* ── PLATFORM PILLS ── */
+    .platform-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .platform-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-size: .85rem;
+    }
+    .platform-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── MEMBERS ── */
+    .member-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .member-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .member-name { font-size: .95rem; font-weight: 700; }
+    .member-streams { font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+    .member-sub { font-size: .72rem; color: var(--muted); }
+
+    /* ── ALBUM TABLE ── */
+    .album-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .album-table th {
+      text-align: left;
+      color: var(--muted);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .album-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .album-table tr:hover td { background: var(--surface); }
+    .album-cover-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── WORLD MAP PLACEHOLDER ── */
+    .world-placeholder {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .world-placeholder .icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+    /* ── FLOURISH EMBED PLACEHOLDER ── */
+    .flourish-placeholder {
+      background: linear-gradient(135deg, var(--surface), var(--card));
+      border: 2px dashed var(--accent2);
+      border-radius: 12px;
+      padding: 48px 20px;
+      text-align: center;
+      color: var(--accent2);
+    }
+    .flourish-placeholder .icon { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+    .flourish-placeholder h3 { font-size: 1rem; margin-bottom: 6px; }
+    .flourish-placeholder p { font-size: .8rem; color: var(--muted); }
+    .flourish-placeholder a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: var(--accent2);
+      color: #000;
+      border-radius: 20px;
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* ── KEY NUMBERS ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .kpi-num { font-size: 2rem; font-weight: 900; display: block; }
+    .kpi-lbl { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+    footer a { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .bar-label { width: 120px; }
+      .hero-meta { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Trabajo de Grado · Infografía</div>
+  <h1>One Direction<br>en el Streaming</h1>
+  <p class="hero-sub">
+    El viaje del grupo de pop británico más icónico de la era digital<br>
+    <span style="color:var(--accent2)">2010 – 2024 · Carrera, Datos & Visualización</span>
+  </p>
+  <div class="hero-meta">
+    <div class="hero-stat"><span class="num">70B+</span><span class="lbl">Streams Totales</span></div>
+    <div class="hero-stat"><span class="num">38.5M</span><span class="lbl">Oyentes Spotify</span></div>
+    <div class="hero-stat"><span class="num">$1.27B</span><span class="lbl">Ingresos Totales</span></div>
+    <div class="hero-stat"><span class="num">5</span><span class="lbl">Álbumes de Estudio</span></div>
+    <div class="hero-stat"><span class="num">200+</span><span class="lbl">Shows en Gira</span></div>
+    <div class="hero-stat"><span class="num">84</span><span class="lbl">Países #1 Spotify</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ BODY ══════════════════════════════ -->
+<div class="container">
+
+  <!-- ── KPIs Clave ── -->
+  <div class="section">
+    <h2 class="section-title">Números que Definen la Carrera</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card" style="border-color:var(--accent1)">
+        <span class="kpi-num" style="color:var(--accent1)">1,520M</span>
+        <span class="kpi-lbl">Streams – What Makes You Beautiful</span>
+      </div>
+      <div class="kpi-card" style="border-color:var(--accent3)">
+        <span class="kpi-num" style="color:var(--accent3)">18.5B</span>
+        <span class="kpi-lbl">Streams Spotify Catálogo</span>
+      </div>
+      <div class="kpi-card" style="border-color:var(--accent2)">
+        <span class="kpi-num" style="color:var(--accent2)">19.8M</span>
+        <span class="kpi-lbl">Álbumes Vendidos</span>
+      </div>
+      <div class="kpi-card" style="border-color:var(--gold)">
+        <span class="kpi-num" style="color:var(--gold)">6 años</span>
+        <span class="kpi-lbl">Carrera Activa (2010–2016)</span>
+      </div>
+      <div class="kpi-card" style="border-color:var(--accent4)">
+        <span class="kpi-num" style="color:var(--accent4)">50+</span>
+        <span class="kpi-lbl">Premios Ganados</span>
+      </div>
+      <div class="kpi-card" style="border-color:#9b59b6">
+        <span class="kpi-num" style="color:#9b59b6">5</span>
+        <span class="kpi-lbl">Miembros Originales</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Top Canciones por Streams ── -->
+  <div class="section">
+    <h2 class="section-title">Top Canciones por Streams en Spotify (millones)</h2>
+    <div class="card">
+      <div class="bar-wrap" id="bar-songs"></div>
+    </div>
+  </div>
+
+  <!-- ── Flourish Embed 1: Bar Chart Race ── -->
+  <div class="section">
+    <h2 class="section-title">Visualización en Flourish – Bar Chart Race</h2>
+    <div class="flourish-placeholder">
+      <span class="icon">📊</span>
+      <h3>Incrustar aquí: Bar Chart Race de Streams por Año</h3>
+      <p>Sube <code>data/streaming_por_plataforma_anual.csv</code> a Flourish y selecciona<br>
+         la plantilla <strong>"Bar Chart Race"</strong>. Copia el código embed aquí.</p>
+      <a href="https://flourish.studio" target="_blank">Abrir Flourish Studio →</a>
+    </div>
+  </div>
+
+  <!-- ── Plataformas de Streaming ── -->
+  <div class="section">
+    <h2 class="section-title">Distribución por Plataforma (2024)</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom:16px;font-size:1rem">Participación de mercado</h3>
+        <div class="platform-grid">
+          <div class="platform-pill"><div class="platform-dot" style="background:#1db954"></div>Spotify – 53%</div>
+          <div class="platform-pill"><div class="platform-dot" style="background:#ff0000"></div>YouTube – 17%</div>
+          <div class="platform-pill"><div class="platform-dot" style="background:#fc3c44"></div>Apple Music – 15%</div>
+          <div class="platform-pill"><div class="platform-dot" style="background:#25d1da"></div>Amazon – 12%</div>
+          <div class="platform-pill"><div class="platform-dot" style="background:#ef5466"></div>Deezer – 2%</div>
+          <div class="platform-pill"><div class="platform-dot" style="background:#00ffff"></div>Tidal – 1%</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:16px;font-size:1rem">Streams anuales totales (en millones)</h3>
+        <div class="bar-wrap" id="bar-plataformas"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Álbumes ── -->
+  <div class="section">
+    <h2 class="section-title">Discografía – Rendimiento por Álbum</h2>
+    <div class="card" style="overflow-x:auto">
+      <table class="album-table">
+        <thead>
+          <tr>
+            <th>Álbum</th>
+            <th>Año</th>
+            <th>Ventas Mundiales</th>
+            <th>Billboard</th>
+            <th>UK #1 Semanas</th>
+            <th>Streams Totales</th>
+          </tr>
+        </thead>
+        <tbody id="album-rows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Miembros ── -->
+  <div class="section">
+    <h2 class="section-title">Miembros – Legado en Streams</h2>
+    <div class="grid-3" id="members-grid"></div>
+  </div>
+
+  <!-- ── Flourish Embed 2: Timeline ── -->
+  <div class="section">
+    <h2 class="section-title">Visualización en Flourish – Línea de Tiempo</h2>
+    <div class="flourish-placeholder">
+      <span class="icon">🗓️</span>
+      <h3>Incrustar aquí: Timeline Interactivo de la Carrera</h3>
+      <p>Sube <code>data/timeline_carrera.csv</code> a Flourish y selecciona la plantilla<br>
+         <strong>"Timeline"</strong>. Filtra por categoría usando el campo <em>Categoria</em>.</p>
+      <a href="https://flourish.studio" target="_blank">Abrir Flourish Studio →</a>
+    </div>
+  </div>
+
+  <!-- ── Timeline Manual ── -->
+  <div class="section">
+    <h2 class="section-title">Hitos Principales de la Carrera</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="timeline" id="timeline-left"></div>
+      </div>
+      <div class="card">
+        <div class="timeline" id="timeline-right"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Audiencia Global Flourish ── -->
+  <div class="section">
+    <h2 class="section-title">Audiencia Global – Distribución por País</h2>
+    <div class="flourish-placeholder">
+      <span class="icon">🌍</span>
+      <h3>Incrustar aquí: Mapa de Calor Mundial</h3>
+      <p>Sube <code>data/audiencia_global.csv</code> a Flourish y selecciona la plantilla<br>
+         <strong>"Projection Map"</strong> con valores de <em>Streams_M</em> como intensidad.</p>
+      <a href="https://flourish.studio" target="_blank">Abrir Flourish Studio →</a>
+    </div>
+  </div>
+
+  <!-- ── Top Países ── -->
+  <div class="section">
+    <h2 class="section-title">Top 10 Países por Streams</h2>
+    <div class="card">
+      <div class="bar-wrap" id="bar-paises"></div>
+    </div>
+  </div>
+
+  <!-- ── Impacto Financiero ── -->
+  <div class="section">
+    <h2 class="section-title">Impacto Financiero por Año (USD Millones)</h2>
+    <div class="flourish-placeholder">
+      <span class="icon">💰</span>
+      <h3>Incrustar aquí: Stacked Bar Chart – Ingresos por Categoría</h3>
+      <p>Sube <code>data/impacto_financiero.csv</code> a Flourish y selecciona la plantilla<br>
+         <strong>"Bar, line and pie charts"</strong> en modo apilado.</p>
+      <a href="https://flourish.studio" target="_blank">Abrir Flourish Studio →</a>
+    </div>
+    <div class="grid-3" style="margin-top:20px">
+      <div class="card" style="border-color:var(--accent1)">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--accent1)">$499M</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:4px">Ingresos por Giras (2011–2015)</div>
+      </div>
+      <div class="card" style="border-color:var(--accent3)">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--accent3)">$266M</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:4px">Ingresos por Streaming</div>
+      </div>
+      <div class="card" style="border-color:var(--gold)">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--gold)">$156M</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:4px">Ventas Físicas Álbumes</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <p>Infografía elaborada como <strong>Trabajo de Grado</strong> · Datos: Spotify Charts, Billboard, RIAA · Visualizaciones: Flourish &amp; Canva</p>
+  <p style="margin-top:6px">One Direction no está afiliado a este trabajo académico. Todos los datos son públicos y estimados con fines ilustrativos.</p>
+</footer>
+
+<!-- ══════════════════════════════ SCRIPTS ══════════════════════════════ -->
+<script>
+/* ── Datos embebidos para renderizado sin servidor ── */
+const songs = [
+  { name: "What Makes You Beautiful", streams: 1520, album: "Up All Night",       color: "#c8102e" },
+  { name: "Story of My Life",          streams: 1380, album: "Midnight Memories",  color: "#00aeef" },
+  { name: "Night Changes",             streams: 980,  album: "Four",               color: "#9b59b6" },
+  { name: "Best Song Ever",            streams: 920,  album: "Midnight Memories",  color: "#00aeef" },
+  { name: "Perfect",                   streams: 890,  album: "Made in the A.M.",   color: "#1db954" },
+  { name: "Little Things",             streams: 870,  album: "Take Me Home",       color: "#ff6b35" },
+  { name: "One Thing",                 streams: 810,  album: "Up All Night",       color: "#c8102e" },
+  { name: "Drag Me Down",              streams: 760,  album: "Made in the A.M.",   color: "#1db954" },
+  { name: "Live While We're Young",    streams: 650,  album: "Take Me Home",       color: "#ff6b35" },
+  { name: "History",                   streams: 620,  album: "Made in the A.M.",   color: "#1db954" },
+];
+
+const albums = [
+  { name: "Up All Night",    year: 2011, sales: "4.5M", billboard: "#2", uk: 14, streams: "1,200M", color: "#c8102e" },
+  { name: "Take Me Home",    year: 2012, sales: "5.1M", billboard: "#1", uk: 9,  streams: "1,580M", color: "#ff6b35" },
+  { name: "Midnight Memories",year:2013, sales: "4.0M", billboard: "#1", uk: 11, streams: "2,100M", color: "#00aeef" },
+  { name: "Four",            year: 2014, sales: "3.2M", billboard: "#1", uk: 8,  streams: "1,750M", color: "#9b59b6" },
+  { name: "Made in the A.M.",year: 2015, sales: "2.8M", billboard: "#2", uk: 6,  streams: "1,950M", color: "#1db954" },
+];
+
+const members = [
+  { name: "One Direction", icon: "1D", streams: "18,500M", followers: "38.5M", color: "#c8102e",  note: "Catálogo del grupo" },
+  { name: "Harry Styles",  icon: "HS", streams: "12,800M", followers: "52.4M", color: "#ff6b35",  note: "As It Was · 2.1B streams" },
+  { name: "Zayn Malik",    icon: "ZM", streams:  "8,200M", followers: "30.1M", color: "#9b59b6",  note: "PILLOWTALK · 850M streams" },
+  { name: "Niall Horan",   icon: "NH", streams:  "3,200M", followers: "18.6M", color: "#00aeef",  note: "Slow Hands · 420M" },
+  { name: "Liam Payne †",  icon: "LP", streams:  "2,800M", followers: "16.2M", color: "#ffd700",  note: "Strip That Down · 680M" },
+  { name: "Louis Tomlinson",icon:"LT", streams:  "2,100M", followers: "14.8M", color: "#1db954",  note: "Back to You · 380M" },
+];
+
+const timeline = [
+  { year:"2010", title:"Formación en The X Factor",       desc:"Simon Cowell une a 5 jóvenes solistas",       color:"#c8102e" },
+  { year:"2011", title:"\"What Makes You Beautiful\"",     desc:"#1 UK · Debut en Billboard · 1.5B streams",  color:"#ff6b35" },
+  { year:"2012", title:"Take Me Home: álbum #1",          desc:"5.1M copias · 1er grupo UK en #1 Billboard",  color:"#ffd700" },
+  { year:"2013", title:"Gira de 123 shows",               desc:"$114.4M recaudados · Midnight Memories",      color:"#00aeef" },
+  { year:"2014", title:"50M seguidores Twitter",          desc:"Primer artista en lograr este hito",           color:"#9b59b6" },
+  { year:"2015", title:"Zayn deja el grupo",              desc:"Continúan como cuarteto · Drag Me Down #1",    color:"#1db954" },
+  { year:"2015", title:"Made in the A.M.",                desc:"Álbum más streameado del catálogo",            color:"#1db954" },
+  { year:"2016", title:"Hiatus anunciado",                desc:"Fin de la era 1D como grupo activo",           color:"#ff6b35" },
+  { year:"2023", title:"Regreso al streaming",            desc:"Nuevo hito: 15B streams acumulados",           color:"#00aeef" },
+  { year:"2024", title:"Liam Payne (†)",                  desc:"El mundo llora · catálogo sube a 18B streams", color:"#c8102e" },
+];
+
+const paises = [
+  { name: "Estados Unidos", streams: 4200, color: "#c8102e" },
+  { name: "Reino Unido",    streams: 1800, color: "#00aeef" },
+  { name: "Brasil",         streams: 980,  color: "#ffd700" },
+  { name: "México",         streams: 720,  color: "#1db954" },
+  { name: "Australia",      streams: 650,  color: "#ff6b35" },
+  { name: "Filipinas",      streams: 580,  color: "#9b59b6" },
+  { name: "Canadá",         streams: 520,  color: "#c8102e" },
+  { name: "Alemania",       streams: 480,  color: "#00aeef" },
+  { name: "Francia",        streams: 420,  color: "#ffd700" },
+  { name: "Argentina",      streams: 380,  color: "#1db954" },
+];
+
+const plataformas = [
+  { name: "2020", streams: 5052, color: "#1db954" },
+  { name: "2021", streams: 5473, color: "#1db954" },
+  { name: "2022", streams: 5785, color: "#1db954" },
+  { name: "2023", streams: 6135, color: "#1db954" },
+  { name: "2024", streams: 7140, color: "#c8102e" },
+];
+
+/* ── Render helpers ── */
+function renderBars(containerId, data, maxStreams, suffix = "M") {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = data.map(d => `
+    <div class="bar-row">
+      <div class="bar-label" title="${d.name}">${d.name}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:0%;background:${d.color}" data-pct="${(d.streams/maxStreams*100).toFixed(1)}"></div>
+      </div>
+      <div class="bar-val">${d.streams.toLocaleString()}${suffix}</div>
+    </div>
+  `).join('');
+  // Animate bars after paint
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  });
+}
+
+function renderAlbums() {
+  const tbody = document.getElementById('album-rows');
+  if (!tbody) return;
+  tbody.innerHTML = albums.map(a => `
+    <tr>
+      <td><span class="album-cover-pill" style="background:${a.color}">${a.name}</span></td>
+      <td>${a.year}</td>
+      <td>${a.sales}</td>
+      <td style="font-weight:700;color:var(--gold)">${a.billboard}</td>
+      <td>${a.uk} sem.</td>
+      <td style="color:var(--accent3)">${a.streams}</td>
+    </tr>
+  `).join('');
+}
+
+function renderMembers() {
+  const grid = document.getElementById('members-grid');
+  if (!grid) return;
+  grid.innerHTML = members.map(m => `
+    <div class="member-card">
+      <div class="member-avatar" style="background:${m.color}">${m.icon}</div>
+      <div class="member-name">${m.name}</div>
+      <div class="member-streams">${m.streams}</div>
+      <div class="member-sub">Streams Spotify</div>
+      <div style="margin-top:6px;font-size:.72rem;color:var(--muted)">${m.followers} seguidores · ${m.note}</div>
+    </div>
+  `).join('');
+}
+
+function renderTimeline() {
+  const half = Math.ceil(timeline.length / 2);
+  ['timeline-left','timeline-right'].forEach((id, idx) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const slice = idx === 0 ? timeline.slice(0, half) : timeline.slice(half);
+    el.innerHTML = slice.map(t => `
+      <div class="t-item">
+        <div class="t-dot" style="background:${t.color}"></div>
+        <div class="t-year">${t.year}</div>
+        <div class="t-title">${t.title}</div>
+        <div class="t-desc">${t.desc}</div>
+      </div>
+    `).join('');
+  });
+}
+
+/* ── Init ── */
+renderBars('bar-songs',      songs,      1520);
+renderBars('bar-paises',     paises,     4200);
+renderBars('bar-plataformas',plataformas, 7140);
+renderAlbums();
+renderMembers();
+renderTimeline();
+</script>
+</body>
+</html>
