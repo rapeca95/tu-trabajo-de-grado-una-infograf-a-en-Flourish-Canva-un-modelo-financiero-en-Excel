@@ -1,0 +1,15 @@
+id,País,Región,Usuarios_2024_M,Crecimiento_Anual_Pct,Top_Género,ARPU_USD
+BRA,Brasil,LATAM,97,12,Funk/Sertanejo,3.20
+MEX,México,LATAM,45,15,Regional Mexicano,4.50
+ARG,Argentina,LATAM,20,10,Pop/Rock,5.80
+COL,Colombia,LATAM,18,18,Vallenato/Pop,3.80
+CHL,Chile,LATAM,12,11,Pop,6.20
+PER,Perú,LATAM,9,20,Pop/Reggaeton,2.90
+VEN,Venezuela,LATAM,5,8,Salsa/Pop,1.50
+ECU,Ecuador,LATAM,4,22,Pop,3.10
+BOL,Bolivia,LATAM,2,25,Pop,2.40
+PRY,Paraguay,LATAM,1.5,28,Pop,2.60
+URY,Uruguay,LATAM,1.2,9,Pop/Rock,6.80
+PAN,Panamá,LATAM,0.8,14,Reggaeton,5.20
+CRI,Costa Rica,LATAM,0.7,13,Pop,5.60
+GTM,Guatemala,LATAM,0.6,19,Pop,2.80
