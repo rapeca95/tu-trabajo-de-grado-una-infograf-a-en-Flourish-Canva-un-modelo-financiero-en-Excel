@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Direction — Infografía de Streaming</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0A0E27; color: #F5F5F5; font-family: 'Segoe UI', Arial, sans-serif; }
+
+  /* PORTADA */
+  .portada {
+    background: linear-gradient(180deg, #0A0E27 0%, #1A2040 100%);
+    text-align: center;
+    padding: 80px 40px 60px;
+    border-bottom: 3px solid #FFD700;
+  }
+  .portada h1 {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    color: #FFD700;
+    text-shadow: 0 0 40px rgba(255,215,0,0.4);
+  }
+  .portada .subtitulo {
+    font-size: 22px;
+    color: #B0B8C1;
+    margin-top: 16px;
+    letter-spacing: 2px;
+  }
+  .portada .periodo {
+    font-size: 16px;
+    color: #4A90D9;
+    margin-top: 12px;
+    letter-spacing: 4px;
+  }
+  .portada .bandera { font-size: 40px; margin-top: 20px; }
+
+  /* SECCIONES */
+  .seccion {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    border-bottom: 2px solid #1A2040;
+  }
+  .seccion-titulo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #FFD700;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .seccion-subtitulo {
+    font-size: 15px;
+    color: #B0B8C1;
+    margin-bottom: 36px;
+    letter-spacing: 1px;
+  }
+  .linea-dorada {
+    width: 60px;
+    height: 3px;
+    background: #FFD700;
+    margin-bottom: 32px;
+  }
+
+  /* INTEGRANTES */
+  .integrantes {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tarjeta-miembro {
+    background: #1A2040;
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    width: 180px;
+    border-top: 4px solid;
+    transition: transform 0.2s;
+  }
+  .tarjeta-miembro:hover { transform: translateY(-4px); }
+  .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 14px;
+  }
+  .tarjeta-miembro h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tarjeta-miembro p { font-size: 12px; color: #B0B8C1; }
+
+  /* KPIs */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .kpi-card {
+    background: linear-gradient(135deg, #1A2040, #0F1535);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    border: 1px solid #2A3060;
+  }
+  .kpi-numero {
+    font-size: 42px;
+    font-weight: 900;
+    color: #FFD700;
+    display: block;
+    line-height: 1;
+  }
+  .kpi-label {
+    font-size: 13px;
+    color: #B0B8C1;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  /* CANVAS CHARTS */
+  .chart-container {
+    background: #0F1535;
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 24px;
+    border: 1px solid #2A3060;
+  }
+  .chart-titulo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4A90D9;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #4A90D9, #FFD700, #FF6B6B);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    background: #1A2040;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 4px solid;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 24px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+  .timeline-fecha {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-evento {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-desc { font-size: 13px; color: #B0B8C1; }
+
+  /* ALBUMES */
+  .albumes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .album-card {
+    background: #1A2040;
+    border-radius: 14px;
+    padding: 24px 16px;
+    text-align: center;
+    border-top: 4px solid;
+  }
+  .album-icono { font-size: 36px; margin-bottom: 12px; }
+  .album-nombre { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .album-anio { font-size: 12px; color: #B0B8C1; margin-bottom: 8px; }
+  .album-streams { font-size: 20px; font-weight: 900; color: #FFD700; }
+  .album-streams-label { font-size: 10px; color: #B0B8C1; }
+
+  /* TOP 10 */
+  .top10-lista { list-style: none; }
+  .top10-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    margin-bottom: 10px;
+    background: #1A2040;
+    border-radius: 10px;
+    border-left: 4px solid;
+  }
+  .top10-pos {
+    font-size: 28px;
+    font-weight: 900;
+    color: #FFD700;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .top10-pos.plata { color: #B0B8C1; }
+  .top10-pos.bronce { color: #CD7F32; }
+  .top10-info { flex: 1; }
+  .top10-cancion { font-size: 16px; font-weight: 700; }
+  .top10-album { font-size: 12px; color: #B0B8C1; }
+  .top10-barra-container { width: 200px; height: 8px; background: #2A3060; border-radius: 4px; }
+  .top10-barra { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #4A90D9, #FFD700); }
+  .top10-streams { font-size: 14px; font-weight: 700; color: #4A90D9; width: 70px; text-align: right; flex-shrink: 0; }
+
+  /* SOLISTAS */
+  .solistas-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .solista-card {
+    background: #1A2040;
+    border-radius: 14px;
+    padding: 20px 14px;
+    text-align: center;
+    border-bottom: 4px solid;
+  }
+  .solista-nombre { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+  .solista-album { font-size: 11px; color: #B0B8C1; margin-bottom: 12px; }
+  .solista-stat { font-size: 24px; font-weight: 900; }
+  .solista-stat-label { font-size: 10px; color: #B0B8C1; }
+
+  /* FOOTER */
+  .footer {
+    background: #060810;
+    text-align: center;
+    padding: 40px;
+    color: #B0B8C1;
+    font-size: 13px;
+    line-height: 2;
+  }
+  .footer strong { color: #FFD700; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <div class="bandera">🇬🇧</div>
+  <h1>ONE DIRECTION</h1>
+  <p class="subtitulo">Del escenario al streaming: una década de impacto</p>
+  <p class="periodo">2010 &mdash; 2024 &nbsp;•&nbsp; Grupo de Pop Británico</p>
+</div>
+
+<!-- SECCIÓN 2: INTEGRANTES -->
+<div class="seccion">
+  <div class="seccion-titulo">🎵 Los 5 Integrantes</div>
+  <div class="seccion-subtitulo">Formados en The X Factor UK, 2010 &mdash; En pausa desde 2016</div>
+  <div class="linea-dorada"></div>
+  <div class="integrantes">
+    <div class="tarjeta-miembro" style="border-color:#FC6C85">
+      <div class="avatar" style="background:#FC6C8530">🎤</div>
+      <h3>Harry Styles</h3>
+      <p>Holmes Chapel, Cheshire</p>
+    </div>
+    <div class="tarjeta-miembro" style="border-color:#1E90FF">
+      <div class="avatar" style="background:#1E90FF30">🎸</div>
+      <h3>Niall Horan</h3>
+      <p>Mullingar, Irlanda</p>
+    </div>
+    <div class="tarjeta-miembro" style="border-color:#36454F">
+      <div class="avatar" style="background:#36454F60">🎹</div>
+      <h3>Liam Payne</h3>
+      <p>Wolverhampton</p>
+    </div>
+    <div class="tarjeta-miembro" style="border-color:#4169E1">
+      <div class="avatar" style="background:#4169E130">🎻</div>
+      <h3>Louis Tomlinson</h3>
+      <p>Doncaster, Yorkshire</p>
+    </div>
+    <div class="tarjeta-miembro" style="border-color:#7851A9">
+      <div class="avatar" style="background:#7851A930">🎺</div>
+      <h3>Zayn Malik</h3>
+      <p>Bradford, Yorkshire</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 3: LÍNEA DE TIEMPO -->
+<div class="seccion">
+  <div class="seccion-titulo">📅 Línea de Tiempo</div>
+  <div class="seccion-subtitulo">Los hitos más importantes de su carrera</div>
+  <div class="linea-dorada"></div>
+  <div class="timeline">
+    <div class="timeline-item" style="border-color:#4A90D9">
+      <div class="timeline-item" style="border:none;padding:0;background:none">
+      <div class="timeline-fecha" style="color:#4A90D9">Julio 2010</div>
+      <div class="timeline-evento">Formación en The X Factor UK</div>
+      <div class="timeline-desc">Simon Cowell une a 5 solistas en un solo grupo</div>
+      </div>
+    </div>
+    <div class="timeline-item" style="border-color:#7B68EE">
+      <div class="timeline-fecha" style="color:#7B68EE">Noviembre 2011</div>
+      <div class="timeline-evento">Lanzamiento “Up All Night” &mdash; #1 en UK y EE.UU.</div>
+      <div class="timeline-desc">Debut histórico, primera banda británica en debutar #1 en EE.UU.</div>
+    </div>
+    <div class="timeline-item" style="border-color:#50C878">
+      <div class="timeline-fecha" style="color:#50C878">Noviembre 2012</div>
+      <div class="timeline-evento">“Take Me Home” &mdash; 7.8 millones de copias</div>
+      <div class="timeline-desc">Gira mundial sold-out en minutos</div>
+    </div>
+    <div class="timeline-item" style="border-color:#FFD700">
+      <div class="timeline-fecha" style="color:#FFD700">Noviembre 2013</div>
+      <div class="timeline-evento">“Midnight Memories” &mdash; Álbum más vendido del año</div>
+      <div class="timeline-desc">#1 global, 9.2 millones de copias en su primer año</div>
+    </div>
+    <div class="timeline-item" style="border-color:#FF8C00">
+      <div class="timeline-fecha" style="color:#FF8C00">2014</div>
+      <div class="timeline-evento">Where We Are Tour &mdash; 3.4 millones de asistentes</div>
+      <div class="timeline-desc">Gira más taquillera de un grupo en 2014</div>
+    </div>
+    <div class="timeline-item" style="border-color:#FF6B6B">
+      <div class="timeline-fecha" style="color:#FF6B6B">Marzo 2015</div>
+      <div class="timeline-evento">Zayn Malik abandona el grupo</div>
+      <div class="timeline-desc">Trending #1 mundial &mdash; pico histórico de streams ese día</div>
+    </div>
+    <div class="timeline-item" style="border-color:#B0B8C1">
+      <div class="timeline-fecha" style="color:#B0B8C1">Marzo 2016</div>
+      <div class="timeline-evento">Pausa oficial del grupo</div>
+      <div class="timeline-desc">Comunicado en redes &mdash; millones de fans en todo el mundo</div>
+    </div>
+    <div class="timeline-item" style="border-color:#FFD700">
+      <div class="timeline-fecha" style="color:#FFD700">Octubre 2024</div>
+      <div class="timeline-evento">Muerte de Liam Payne</div>
+      <div class="timeline-desc">Pico histórico de streams en tributo +280% en 24 horas</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 4: KPIs + GRÁFICO STREAMS -->
+<div class="seccion">
+  <div class="seccion-titulo">📊 Evolución en Streaming</div>
+  <div class="seccion-subtitulo">Streams acumulados en todas las plataformas digitales (2010–2024)</div>
+  <div class="linea-dorada"></div>
+  <div class="kpis">
+    <div class="kpi-card">
+      <span class="kpi-numero">+15B</span>
+      <div class="kpi-label">Streams totales históricos en todas las plataformas</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-numero">#1</span>
+      <div class="kpi-label">En 19 países simultáneamente con “Four”</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-numero">70M+</span>
+      <div class="kpi-label">Seguidores en Spotify actualmente</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-numero">5</span>
+      <div class="kpi-label">Álbumes, todos #1 en UK y EE.UU.</div>
+    </div>
+  </div>
+  <div class="chart-container">
+    <div class="chart-titulo">Streams por plataforma por año (en millones)</div>
+    <canvas id="chartStreams" height="120"></canvas>
+  </div>
+</div>
+
+<!-- SECCIÓN 5: DISCOGRAFÍA -->
+<div class="seccion">
+  <div class="seccion-titulo">💿 Discografía</div>
+  <div class="seccion-subtitulo">5 álbumes de estudio &mdash; todos #1 en el mundo</div>
+  <div class="linea-dorada"></div>
+  <div class="albumes-grid">
+    <div class="album-card" style="border-color:#87CEEB">
+      <div class="album-icono">💿</div>
+      <div class="album-nombre">Up All Night</div>
+      <div class="album-anio">2011</div>
+      <div class="album-streams">850M</div>
+      <div class="album-streams-label">streams Spotify</div>
+    </div>
+    <div class="album-card" style="border-color:#98FF98">
+      <div class="album-icono">💿</div>
+      <div class="album-nombre">Take Me Home</div>
+      <div class="album-anio">2012</div>
+      <div class="album-streams">1,420M</div>
+      <div class="album-streams-label">streams Spotify</div>
+    </div>
+    <div class="album-card" style="border-color:#6A0DAD">
+      <div class="album-icono">💿</div>
+      <div class="album-nombre">Midnight Memories</div>
+      <div class="album-anio">2013</div>
+      <div class="album-streams">1,980M</div>
+      <div class="album-streams-label">streams Spotify</div>
+    </div>
+    <div class="album-card" style="border-color:#8B0000">
+      <div class="album-icono">💿</div>
+      <div class="album-nombre">Four</div>
+      <div class="album-anio">2014</div>
+      <div class="album-streams">2,150M</div>
+      <div class="album-streams-label">streams Spotify</div>
+    </div>
+    <div class="album-card" style="border-color:#FF8C00">
+      <div class="album-icono">💿</div>
+      <div class="album-nombre">Made in the A.M.</div>
+      <div class="album-anio">2015</div>
+      <div class="album-streams">1,640M</div>
+      <div class="album-streams-label">streams Spotify</div>
+    </div>
+  </div>
+  <div class="chart-container" style="margin-top:32px">
+    <div class="chart-titulo">Streams por álbum en Spotify (millones)</div>
+    <canvas id="chartAlbumes" height="100"></canvas>
+  </div>
+</div>
+
+<!-- SECCIÓN 6: TOP 10 CANCIONES -->
+<div class="seccion">
+  <div class="seccion-titulo">🏆 Top 10 Canciones</div>
+  <div class="seccion-subtitulo">Las más escuchadas en Spotify de todos los tiempos</div>
+  <div class="linea-dorada"></div>
+  <ul class="top10-lista">
+    <li class="top10-item" style="border-color:#FFD700">
+      <div class="top10-pos">1</div>
+      <div class="top10-info">
+        <div class="top10-cancion">What Makes You Beautiful</div>
+        <div class="top10-album">Up All Night &bull; 2011 &bull; Pico: #1 Global</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:100%"></div></div>
+      <div class="top10-streams">1,850M</div>
+    </li>
+    <li class="top10-item" style="border-color:#B0B8C1">
+      <div class="top10-pos plata">2</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Story of My Life</div>
+        <div class="top10-album">Midnight Memories &bull; 2013 &bull; Pico: #1 Global</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:88%"></div></div>
+      <div class="top10-streams">1,620M</div>
+    </li>
+    <li class="top10-item" style="border-color:#CD7F32">
+      <div class="top10-pos bronce">3</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Night Changes</div>
+        <div class="top10-album">Four &bull; 2014 &bull; Pico: #1 Global</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:80%"></div></div>
+      <div class="top10-streams">1,480M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">4</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Best Song Ever</div>
+        <div class="top10-album">This Is Us OST &bull; 2013</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:73%"></div></div>
+      <div class="top10-streams">1,350M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">5</div>
+      <div class="top10-info">
+        <div class="top10-cancion">One Thing</div>
+        <div class="top10-album">Up All Night &bull; 2012</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:70%"></div></div>
+      <div class="top10-streams">1,290M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">6</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Little Things</div>
+        <div class="top10-album">Take Me Home &bull; 2012</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:67%"></div></div>
+      <div class="top10-streams">1,240M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">7</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Drag Me Down</div>
+        <div class="top10-album">Made in the A.M. &bull; 2015</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:64%"></div></div>
+      <div class="top10-streams">1,180M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">8</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Perfect</div>
+        <div class="top10-album">Made in the A.M. &bull; 2015</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:61%"></div></div>
+      <div class="top10-streams">1,120M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">9</div>
+      <div class="top10-info">
+        <div class="top10-cancion">Live While We're Young</div>
+        <div class="top10-album">Take Me Home &bull; 2012</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:58%"></div></div>
+      <div class="top10-streams">1,080M</div>
+    </li>
+    <li class="top10-item" style="border-color:#4A90D9">
+      <div class="top10-pos" style="color:#4A90D9;font-size:20px">10</div>
+      <div class="top10-info">
+        <div class="top10-cancion">You &amp; I</div>
+        <div class="top10-album">Four &bull; 2014</div>
+      </div>
+      <div class="top10-barra-container"><div class="top10-barra" style="width:53%"></div></div>
+      <div class="top10-streams">980M</div>
+    </li>
+  </ul>
+</div>
+
+<!-- SECCIÓN 7: CARRERAS SOLISTAS -->
+<div class="seccion">
+  <div class="seccion-titulo">⭐ Legado: Carreras Solistas</div>
+  <div class="seccion-subtitulo">¿Quién triunfó más después de la pausa?</div>
+  <div class="linea-dorada"></div>
+  <div class="solistas-grid">
+    <div class="solista-card" style="border-color:#FC6C85">
+      <div class="solista-nombre" style="color:#FC6C85">Harry Styles</div>
+      <div class="solista-album">Debut: Harry Styles (2017)</div>
+      <div class="solista-stat" style="color:#FC6C85">42.5M</div>
+      <div class="solista-stat-label">oyentes mensuales Spotify</div>
+    </div>
+    <div class="solista-card" style="border-color:#7851A9">
+      <div class="solista-nombre" style="color:#7851A9">Zayn Malik</div>
+      <div class="solista-album">Debut: Mind of Mine (2016)</div>
+      <div class="solista-stat" style="color:#7851A9">18.6M</div>
+      <div class="solista-stat-label">oyentes mensuales Spotify</div>
+    </div>
+    <div class="solista-card" style="border-color:#1E90FF">
+      <div class="solista-nombre" style="color:#1E90FF">Niall Horan</div>
+      <div class="solista-album">Debut: Flicker (2017)</div>
+      <div class="solista-stat" style="color:#1E90FF">12.8M</div>
+      <div class="solista-stat-label">oyentes mensuales Spotify</div>
+    </div>
+    <div class="solista-card" style="border-color:#4169E1">
+      <div class="solista-nombre" style="color:#4169E1">Louis Tomlinson</div>
+      <div class="solista-album">Debut: Walls (2020)</div>
+      <div class="solista-stat" style="color:#4169E1">9.2M</div>
+      <div class="solista-stat-label">oyentes mensuales Spotify</div>
+    </div>
+    <div class="solista-card" style="border-color:#36454F">
+      <div class="solista-nombre" style="color:#B0B8C1">Liam Payne</div>
+      <div class="solista-album">Debut: LP1 (2019)</div>
+      <div class="solista-stat" style="color:#B0B8C1">8.4M</div>
+      <div class="solista-stat-label">oyentes mensuales Spotify</div>
+    </div>
+  </div>
+  <div class="chart-container" style="margin-top:32px">
+    <div class="chart-titulo">Oyentes mensuales en Spotify 2024 (millones)</div>
+    <canvas id="chartSolistas" height="100"></canvas>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>ONE DIRECTION &mdash; Infografía de Streaming</strong><br>
+  Fuentes: Spotify Charts &bull; YouTube Analytics &bull; Statista &bull; IFPI Global Music Report &bull; Official Charts Company<br>
+  Datos: estimaciones basadas en fuentes públicas disponibles &bull; Elaborado: 2025<br>
+  <span style="color:#4A90D9">🇬🇧 Grupo formado en Reino Unido e Irlanda &bull; Activos 2010–2016</span>
+</div>
+
+<script>
+Chart.defaults.color = '#B0B8C1';
+Chart.defaults.borderColor = '#2A3060';
+
+// GRÁFICO 1: Streams anuales
+const ctx1 = document.getElementById('chartStreams').getContext('2d');
+new Chart(ctx1, {
+  type: 'line',
+  data: {
+    labels: ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [
+      {
+        label: 'Spotify',
+        data: [0,45,210,580,720,490,180,210,260,310,380,420,395,360,340],
+        borderColor: '#1DB954',
+        backgroundColor: 'rgba(29,185,84,0.1)',
+        tension: 0.4, fill: true, pointRadius: 4
+      },
+      {
+        label: 'YouTube',
+        data: [12,320,890,1450,1680,1120,620,580,650,720,890,950,880,820,790],
+        borderColor: '#FF4444',
+        backgroundColor: 'rgba(255,68,68,0.05)',
+        tension: 0.4, fill: true, pointRadius: 4
+      },
+      {
+        label: 'Apple Music',
+        data: [0,28,145,380,490,330,120,140,170,200,250,280,260,240,230],
+        borderColor: '#FC3C44',
+        backgroundColor: 'rgba(252,60,68,0.05)',
+        tension: 0.4, fill: true, pointRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#F5F5F5' } } },
+    scales: {
+      x: { ticks: { color: '#B0B8C1' } },
+      y: { ticks: { color: '#B0B8C1' }, title: { display: true, text: 'Millones de streams', color: '#B0B8C1' } }
+    }
+  }
+});
+
+// GRÁFICO 2: Álbumes
+const ctx2 = document.getElementById('chartAlbumes').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Up All Night (2011)', 'Take Me Home (2012)', 'Midnight Memories (2013)', 'Four (2014)', 'Made in the A.M. (2015)'],
+    datasets: [{
+      label: 'Streams Spotify (millones)',
+      data: [850, 1420, 1980, 2150, 1640],
+      backgroundColor: ['#87CEEB','#98FF98','#9B59B6','#C0392B','#E67E22'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#B0B8C1' } },
+      y: { ticks: { color: '#F5F5F5' } }
+    }
+  }
+});
+
+// GRÁFICO 3: Solistas
+const ctx3 = document.getElementById('chartSolistas').getContext('2d');
+new Chart(ctx3, {
+  type: 'bar',
+  data: {
+    labels: ['Harry Styles', 'Zayn Malik', 'Niall Horan', 'Louis Tomlinson', 'Liam Payne'],
+    datasets: [{
+      label: 'Oyentes mensuales Spotify (millones)',
+      data: [42.5, 18.6, 12.8, 9.2, 8.4],
+      backgroundColor: ['#FC6C85','#7851A9','#1E90FF','#4169E1','#36454F'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#F5F5F5' } },
+      y: { ticks: { color: '#B0B8C1' }, title: { display: true, text: 'Millones', color: '#B0B8C1' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
