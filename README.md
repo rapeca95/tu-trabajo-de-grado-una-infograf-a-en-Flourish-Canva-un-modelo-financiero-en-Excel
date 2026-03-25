@@ -4,7 +4,7 @@
 ---
 
 ## Tema
-**"Spotify: El Imperio del Audio Digital - Análisis de datos 2015-2024"**
+**"Spotify: El Imperio del Audio Digital - Análisis de datos 2015-2025"**
 
 ## Narrativa central
 > Spotify pasó de ser un reproductor de música a convertirse en la plataforma de audio más grande del mundo. Pero, ¿es rentable para todos? ¿Y qué tan sostenible es su modelo?
@@ -15,19 +15,26 @@
 
 ```
 /
-├── data/                          # Datos CSV para importar en Flourish
-│   ├── 01_spotify_mau_crecimiento.csv      # Usuarios 2015-2024
-│   ├── 02_spotify_ingresos.csv             # Ingresos y costos 2017-2024
-│   ├── 03_spotify_cuota_mercado.csv        # Market share vs competidores
-│   ├── 04_spotify_latam.csv                # Penetración en América Latina
-│   ├── 05_spotify_podcasts_crecimiento.csv # Crecimiento del podcast
-│   ├── 06_spotify_generos_top.csv          # Géneros más escuchados
-│   ├── 07_spotify_artistas_top_streams.csv # Top artistas por streams
-│   └── 08_spotify_finanzas_clave.csv       # Métricas financieras clave
+├── data/                                        # Datos CSV para importar en Flourish
+│   ├── bar_chart_race_plataformas.csv           # Bar Chart Race: MAU por plataforma 2015-2025
+│   ├── 01_spotify_mau_crecimiento.csv           # Usuarios 2015-2025
+│   ├── 02_spotify_ingresos.csv                  # Ingresos y costos 2017-2025
+│   ├── 03_spotify_cuota_mercado.csv             # Market share vs competidores
+│   ├── 04_spotify_latam.csv                     # Penetración en América Latina
+│   ├── 05_spotify_podcasts_crecimiento.csv      # Crecimiento del podcast
+│   ├── 06_spotify_generos_top.csv               # Géneros más escuchados
+│   ├── 07_spotify_artistas_top_streams.csv      # Top artistas por streams
+│   └── 08_spotify_finanzas_clave.csv            # Métricas financieras clave
+│
+├── excel/
+│   └── modelo_financiero_spotify.csv            # Modelo financiero completo 2019-2025
+│
+├── infografia/
+│   └── contenido_infografia_spotify.md          # Copy y estructura para Canva
 │
 └── guias/
-    ├── guia_flourish_paso_a_paso.md       # Cómo hacer cada gráfica en Flourish
-    └── guia_canva_infografia.md           # Cómo diseñar la infografía en Canva
+    ├── guia_flourish_paso_a_paso.md             # Cómo hacer cada gráfica en Flourish
+    └── guia_canva_infografia.md                 # Cómo diseñar la infografía en Canva
 ```
 
 ---
@@ -37,14 +44,28 @@
 | # | Sección | Visualización | Datos | Mensaje clave |
 |---|---------|--------------|-------|---------------|
 | 1 | Encabezado | Diseño Canva | - | Título impactante |
-| 2 | KPIs | 4 cajas de números | Todos | 678M usuarios, $15B |
-| 3 | Crecimiento | Línea animada | CSV 01 | +803% en 9 años |
+| 2 | KPIs | 4 cajas de números | Todos | 751M usuarios, €17B |
+| 3 | Crecimiento | Línea animada | CSV 01 | +903% en 10 años |
 | 4 | Ingresos | Barras apiladas | CSV 02 | Freemium funciona |
-| 5 | Mercado | Donut chart | CSV 03 | Spotify #1 global |
+| 5 | Mercado | Bar Chart Race | bar_chart_race | Spotify domina 31.7% |
 | 6 | LATAM | Mapa de calor | CSV 04 | Brasil y México lideran |
 | 7 | Podcasts | Área animada | CSV 05 | Nueva apuesta de Spotify |
-| 8 | Artistas | Bar Race / Horizontal | CSV 07 | La paradoja del artista |
+| 8 | Artistas | Bar horizontal | CSV 07 | La paradoja del artista |
 | 9 | Cierre | Conclusión + Fuentes | - | Análisis final |
+
+---
+
+## Datos clave (actualizado a 2025/2026)
+
+| Métrica | Cifra |
+|---------|-------|
+| MAU | **751 millones** |
+| Suscriptores Premium | **290 millones** |
+| Países disponibles | **237** |
+| Ingresos 2025 | **€17.1 mil millones** |
+| Primer beneficio neto | **2024 (+€1.14 mil millones)** |
+| Cuota de mercado | **31.7%** |
+| Canciones en catálogo | **+100 millones** |
 
 ---
 
@@ -72,10 +93,13 @@
 
 - [Spotify Annual Report 2024](https://investors.spotify.com)
 - [Spotify Loud & Clear 2024](https://loudandclear.byspotify.com)
+- [Spotify Q4 2025 Earnings Newsroom](https://newsroom.spotify.com)
 - [IFPI Global Music Report 2024](https://www.ifpi.org)
 - [Statista - Spotify Statistics 2024](https://www.statista.com)
 - [MIDiA Research - Music Market Shares 2024](https://www.midiaresearch.com)
 - [SEC Filing 20-F Spotify 2023](https://www.sec.gov)
+- [Demandsage — Spotify Statistics 2026](https://www.demandsage.com)
+- [MacroTrends — Spotify Net Income](https://www.macrotrends.net)
 
 ---
 
@@ -85,6 +109,7 @@
 - Negro: `#191414`
 - Blanco: `#FFFFFF`
 - Gris oscuro: `#535353`
+- Verde oscuro: `#158940`
 
 ---
 
